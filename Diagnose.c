@@ -122,7 +122,7 @@ void checkNetwork() {
         printColoredMessage("[SUCCESS] Network is connected.\n", 0, 255, 0);
     } else {
         printColoredMessage("[ERROR] Network connectivity issue detected.\n", 255, 0, 0);
-        printColoredMessage("[SOLUTION] Check your internet connection, router settings, or firewall.\n", 255, 255, 0);
+        printColoredMessage("[SOLUTION] Check your internet connection, router settings, or firewall. for more info contact us at https://mishraharshit.vercel.app\n", 255, 255, 0);
     }
 }
 
