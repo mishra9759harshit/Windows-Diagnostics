@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-// Define ENABLE_VIRTUAL_TERMINAL_PROCESSING if not already defined
+// Enable define
 #ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
 #endif
@@ -28,7 +28,7 @@ void enableANSIMode() {
 }
 
 
-// Function to execute CMD commands with error handling
+//function to execute commands
 int executeCMDCommand(const char *command) {
     int ret = system(command);
     if (ret == -1) {
@@ -224,7 +224,7 @@ int main() {
     printColoredMessage("\n[INFO] Starting diagnostics...\n", 255, 255, 0);
   
     printf("Choose an Operation\n");
-    printf("01. Check Disk");
+    printf("01. Check Disk\n");
     printf("02. Check System Files\n");
     printf("03. Check Network Issue\n");
     printf("04. Check windows update Issue\n");
@@ -236,6 +236,7 @@ int main() {
     printf("10. Check Firewall Status\n");
     printf("11. Run Advance Checkup\n");
     printf("12. Help\n");
+    printf("We are working on this project\n");
     printf("0.  Exit\n");
     printf("\n Enter Your Choice\n");
     scanf("%d", &choice);
