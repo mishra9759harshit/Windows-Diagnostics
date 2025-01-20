@@ -1,6 +1,4 @@
-
-
-```markdown
+---
 # 🛠️ Windows Diagnostic Tool  
 
 ![Build Status](https://img.shields.io/badge/Build-Stable-brightgreen)  
