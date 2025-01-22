@@ -7,10 +7,7 @@
 #include <string.h>
 #include <time.h>
 
-<<<<<<< Updated upstream
-=======
 
->>>>>>> Stashed changes
 // Enable define
 #ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
 #define ENABLE_VIRTUAL_TERMINAL_PROCESSING 0x0004
@@ -162,10 +159,7 @@ void checkNetwork() {
     } else {
         printColoredMessage("[ERROR] Network connectivity issue detected.\n", 255, 0, 0);
         printColoredMessage("[SOLUTION] Check your internet connection, router settings, or firewall. for more info contact us at https://mishraharshit.vercel.app\n", 255, 255, 0);
-<<<<<<< Updated upstream
-=======
          Beep(500, 500);  
->>>>>>> Stashed changes
     }
 }
 
@@ -293,11 +287,7 @@ int main() {
     printf("10. Check Firewall Status\n");
     printf("11. Run Advance Checkup\n");
     printf("12. Help\n");
-<<<<<<< Updated upstream
-    printf("We are working on this project\n");
-=======
     printf("13. Clear Screen\n");
->>>>>>> Stashed changes
     printf("0.  Exit\n");
     printf("\n Enter Your Choice\n");
     scanf("%d", &choice);
