@@ -1,7 +1,12 @@
+#define _WIN32_WINNT 0x0600 
+#define WINVER 0x0600
+
 #include <windows.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
+
 
 // Enable define
 #ifndef ENABLE_VIRTUAL_TERMINAL_PROCESSING
@@ -73,7 +78,33 @@ int isAdmin() {
     return isAdmin;
 }
 
-// Enhanced checkDisk function
+void ninjaLoadingAnimation(const char* taskName, int duration) {
+    const char* frames[] = {
+        "🌕    🥷 Ninja is Preparing... 🌕",
+        "🌕   🥷  Ninja is Moving...   🌕",
+        "🌕  🥷   Ninja is Running...  🌕",
+        "🌕 🥷    Ninja is Fighting... 🌕",
+        "🌕  🥷   Ninja is Sneaking... 🌕",
+        "🌕   🥷  Ninja is Winning!    🌕"
+    };
+    int frameCount = sizeof(frames) / sizeof(frames[0]);
+
+    printf("\n[INFO] %s\n", taskName); // Display the task name
+    clock_t start = clock();
+
+    // Loop the animation for the specified duration
+    while ((clock() - start) < duration * CLOCKS_PER_SEC) {
+        for (int i = 0; i < frameCount; i++) {
+            printf("\r%s", frames[i]); 
+            fflush(stdout); 
+            Sleep(300); 
+        }
+    }
+    printf("\r\033[K"); 
+}
+
+
+
 void checkDisk() {
     if (!isAdmin()) {
         printColoredMessage("[ERROR] This program requires administrative privileges. Please run as Administrator.\n", 255, 0, 0);
@@ -87,126 +118,146 @@ void checkDisk() {
     char command[50];
     snprintf(command, sizeof(command), "chkdsk %s /f /r", drive);
 
-    printColoredMessage("\n[INFO] Checking disk for errors. This may take some time...\n", 255, 255, 0);
+    ninjaLoadingAnimation("Checking disk for errors. This may take some time...", 5);
     int ret = executeCMDCommand(command);
 
     if (ret == 0) {
         printColoredMessage("[SUCCESS] Disk checked successfully.\n", 0, 255, 0);
+        Beep(1000, 500);  
     } else {
         printColoredMessage("[ERROR] Disk check failed.\n", 255, 0, 0);
         printColoredMessage("[SOLUTION] Ensure the drive is not in use and run 'chkdsk /f' as Administrator in CMD.\n", 255, 255, 0);
         printColoredMessage("[TIP] You may need to schedule a disk check on reboot for system drives.\n", 255, 255, 0);
+         Beep(500, 500);  
     }
 
     printColoredMessage("[INFO] Task complete. Review the above output for details.\n", 0, 255, 255);
 }
 
 
-// Function to check system files using sfc
+
 void checkSystemFiles() {
     printColoredMessage("\n[INFO] Checking system files...\n", 255, 255, 0);
     int ret = executeCMDCommand("sfc /scannow");
     if (ret == 0) {
         printColoredMessage("[SUCCESS] System files are in good condition.\n", 0, 255, 0);
+        Beep(1000, 500);  
     } else {
         printColoredMessage("[ERROR] System file integrity check failed.\n", 255, 0, 0);
         printColoredMessage("[SOLUTION] Ensure the system has sufficient disk space and try again.\n", 255, 255, 0);
+         Beep(500, 500); 
     }
 }
 
-// Function to check network connectivity
+
 void checkNetwork() {
-    printColoredMessage("\n[INFO] Checking network connectivity...\n", 255, 255, 0);
+    ninjaLoadingAnimation("\n[INFO] Checking network connectivity...\n", 5);
     int ret = executeCMDCommand("ping -n 3 google.com");
     if (ret == 0) {
         printColoredMessage("[SUCCESS] Network is connected.\n", 0, 255, 0);
+        Beep(1000, 500);  
     } else {
         printColoredMessage("[ERROR] Network connectivity issue detected.\n", 255, 0, 0);
         printColoredMessage("[SOLUTION] Check your internet connection, router settings, or firewall. for more info contact us at https://mishraharshit.vercel.app\n", 255, 255, 0);
+         Beep(500, 500);  
     }
 }
 
-// Function to check for Windows Update issues
+
 void checkWindowsUpdate() {
-    printColoredMessage("\n[INFO] Checking Windows Update...\n", 255, 255, 0);
+    ninjaLoadingAnimation("\n[INFO] Checking Windows Update...\n", 5);
     int ret = executeCMDCommand("powershell -Command \"Get-WindowsUpdateLog\"");
     if (ret == 0) {
         printColoredMessage("[SUCCESS] Windows Update log checked.\n", 0, 255, 0);
+        Beep(1000, 500);  
     } else {
         printColoredMessage("[ERROR] Failed to check Windows Update log.\n", 255, 0, 0);
         printColoredMessage("[SOLUTION] Run 'Get-WindowsUpdateLog' in an elevated PowerShell.\n", 255, 255, 0);
+         Beep(500, 500); 
     }
 }
 
-// Function to clear temporary files
+
 void clearTempFiles() {
-    printColoredMessage("\n[INFO] Clearing temporary files...\n", 255, 255, 0);
+    ninjaLoadingAnimation("\n[INFO] Clearing temporary files...\n", 5);
     int ret = executeCMDCommand("del /q /f /s %TEMP%\\*");
     if (ret == 0) {
         printColoredMessage("[SUCCESS] Temporary files cleared.\n", 0, 255, 0);
+        Beep(1000, 500);  
     } else {
         printColoredMessage("[ERROR] Failed to clear temporary files.\n", 255, 0, 0);
         printColoredMessage("[SOLUTION] Run 'cleanmgr' or manually delete files in the Temp folder.\n", 255, 255, 0);
+         Beep(500, 500);  
     }
 }
 
-// Function to check disk space
+
 void checkDiskSpace() {
-    printColoredMessage("\n[INFO] Checking disk space...\n", 255, 255, 0);
+    ninjaLoadingAnimation("\n[INFO] Checking disk space...\n", 5);
     int ret = executeCMDCommand("wmic logicaldisk get size,freespace,caption");
     if (ret == 0) {
         printColoredMessage("[SUCCESS] Disk space checked successfully.\n", 0, 255, 0);
+        Beep(1000, 500);  
     } else {
         printColoredMessage("[ERROR] Failed to check disk space.\n", 255, 0, 0);
         printColoredMessage("[SOLUTION] Use 'This PC' to manually view disk space.\n", 255, 255, 0);
+         Beep(500, 500);
     }
 }
 
-// Function to check CPU temperature (requires additional tools)
+
 void checkCPUTemperature() {
-    printColoredMessage("\n[INFO] Checking CPU temperature...\n", 255, 255, 0);
+    ninjaLoadingAnimation("\n[INFO] Checking CPU temperature...\n", 5);
     int ret = executeCMDCommand("wmic /namespace:\\\\root\\wmi path MSAcpi_ThermalZoneTemperature get CurrentTemperature");
     if (ret == 0) {
         printColoredMessage("[SUCCESS] CPU temperature checked.\n", 0, 255, 0);
+        Beep(1000, 500);  
     } else {
         printColoredMessage("[ERROR] Failed to check CPU temperature.\n", 255, 0, 0);
         printColoredMessage("[SOLUTION] Use third-party tools like HWMonitor or CoreTemp.\n", 255, 255, 0);
+         Beep(500, 500);  
     }
 }
 
-// Function to check Windows Defender status
+
 void checkDefenderStatus() {
-    printColoredMessage("\n[INFO] Checking Windows Defender status...\n", 255, 255, 0);
+    ninjaLoadingAnimation("\n[INFO] Checking Windows Defender status...\n", 5);
     int ret = executeCMDCommand("powershell Get-MpComputerStatus");
     if (ret == 0) {
         printColoredMessage("[SUCCESS] Windows Defender status checked.\n", 0, 255, 0);
+        Beep(1000, 500);  
     } else {
         printColoredMessage("[ERROR] Failed to check Windows Defender status.\n", 255, 0, 0);
         printColoredMessage("[SOLUTION] Verify that Windows Defender is enabled.\n", 255, 255, 0);
+         Beep(500, 500); 
     }
 }
 
-// Function to check for application errors (Event Viewer)
+
 void checkAppErrors() {
-    printColoredMessage("\n[INFO] Checking application errors...\n", 255, 255, 0);
+    ninjaLoadingAnimation("\n[INFO] Checking application errors...\n", 5);
     int ret = executeCMDCommand("eventvwr.msc");
     if (ret == 0) {
         printColoredMessage("[SUCCESS] Application errors checked.\n", 0, 255, 0);
+        Beep(1000, 500); 
     } else {
         printColoredMessage("[ERROR] Failed to open Event Viewer.\n", 255, 0, 0);
         printColoredMessage("[SOLUTION] Open Event Viewer manually to check for application errors.\n", 255, 255, 0);
+         Beep(500, 500);  
     }
 }
 
-// Function to check Windows Firewall status
+
 void checkFirewallStatus() {
-    printColoredMessage("\n[INFO] Checking firewall status...\n", 255, 255, 0);
+    ninjaLoadingAnimation("\n[INFO] Checking firewall status...\n", 5);
     int ret = executeCMDCommand("netsh advfirewall show allprofiles state");
     if (ret == 0) {
         printColoredMessage("[SUCCESS] Firewall status checked.\n", 0, 255, 0);
+        Beep(1000, 500);  
     } else {
         printColoredMessage("[ERROR] Failed to check firewall status.\n", 255, 0, 0);
         printColoredMessage("[SOLUTION] Verify firewall settings manually via Control Panel.\n", 255, 255, 0);
+         Beep(500, 500);  
     }
 }
 
@@ -236,7 +287,7 @@ int main() {
     printf("10. Check Firewall Status\n");
     printf("11. Run Advance Checkup\n");
     printf("12. Help\n");
-    printf("We are working on this project\n");
+    printf("13. Clear Screen\n");
     printf("0.  Exit\n");
     printf("\n Enter Your Choice\n");
     scanf("%d", &choice);
@@ -292,7 +343,15 @@ int main() {
                    printColoredMessage("If you want to Run all test at once just type 11\n",0, 255, 255);
                    break;
 
+          case 13: system("cls");        
+
           case 0: printColoredMessage("Good bye exiting.........\n\n",0, 255, 255);
+          Beep(1000, 500);
+          Sleep(300);
+           Beep(500, 500);  
+          Sleep(300); 
+          Beep(1000, 500);
+          
           break;
 
           default: printColoredMessage("Wrong Input please enter valid number of command\n",0, 255, 255);       
