@@ -24,9 +24,11 @@ A powerful **Windows Diagnostic CLI Tool** developed in **C language** that dete
 
 **Author:** Harshit Mishra  
 **Website:** [mishraharshit.vercel.app](https://mishraharshit.vercel.app)  
+
 **explore my project store**
 
 [Playstore](https://playstoreapp.verce.app)
+
 **Practice all Programming language online**
 
 [online compiler](https://securecoder.verce.app/compiler/compiler.html)
