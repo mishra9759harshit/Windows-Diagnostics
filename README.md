@@ -13,7 +13,7 @@ A powerful **Windows Diagnostic CLI Tool** developed in **C language** that dete
 ## 🚀 Features
 
 - Automatically scans and detects Windows system issues.  
-- Fixes problems like missing DLLs, network issues, corrupt files, etc.  
+- Fixes problems like missing DLLs, network issues, corrupt files, and many more things etc.  
 - Uses trusted CMD commands to ensure maximum compatibility and reliability.  
 - Simple and fast command-line interface for diagnostics.  
 - Provides logs for the actions performed during diagnosis and repair.  
