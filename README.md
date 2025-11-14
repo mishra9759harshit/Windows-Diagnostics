@@ -44,7 +44,7 @@ A powerful **Windows Diagnostic CLI Tool** developed in **C language** that dete
 
 1. **Clone the repository:**  
    ```bash
-   git clone https://github.com/<your-github-username>/windows-diagnostic.git
+   git clone https://github.com/mishra9759harshit/windows-diagnostic.git
    ```
 2. **Compile the C code:**  
    Use any C compiler (like GCC) to compile the code:  
